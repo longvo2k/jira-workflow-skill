@@ -1,0 +1,25 @@
+{
+  "jira": {
+    "installation": "cloud",
+    "server": "https://your-company.atlassian.net",
+    "project": "ABC",
+    "board": "ABC board"
+  },
+  "bitbucket": {
+    "workspace": "your-company",
+    "repos": ["mobile-app", "backend-api"],
+    "defaultRepo": "mobile-app"
+  },
+  "worklog": {
+    "timezone": "Asia/Ho_Chi_Minh",
+    "requireComment": true,
+    "dailyTargetHours": 8
+  },
+  "conventions": {
+    "branch": "feature/{key}-{short-summary}",
+    "commit": "{key}: {message}",
+    "doneStatus": "Done",
+    "inProgressStatus": "In Progress",
+    "reviewStatus": "In Review"
+  }
+}
