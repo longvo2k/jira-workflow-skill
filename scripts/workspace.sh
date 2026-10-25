@@ -79,8 +79,8 @@ case "$cmd" in
       echo "Bitbucket"
       bbws="$(ws_get .bitbucket.workspace)"
       for r in $(bb_repos); do
-        if out="$(bb_get "/repositories/$bbws/$r" 2>&1 | jq -r '.full_name' 2>&1)" && [[ "$out" != null ]]; then
-          pass "repo $out"
+        if out="$( (bb_get "/repositories/$bbws/$r") 2>&1)" && name="$(jq -re '.full_name' <<<"$out" 2>/dev/null)"; then
+          pass "repo $name"
         else
           fail "cannot read repo $bbws/$r: $(echo "$out" | head -2)"
         fi
