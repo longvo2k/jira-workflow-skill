@@ -5,6 +5,14 @@
 
 set -euo pipefail
 
+# Shells that don't run the direnv hook (scripts, agents, CI) still get the project's .envrc:
+# re-run this script once through `direnv exec` when the current folder has an allowed .envrc.
+if [[ -z "${WORKFLOW_DIRENV_LOADED:-}" ]] && command -v direnv >/dev/null 2>&1 \
+  && [[ "$(direnv status 2>/dev/null)" == *$'\nFound RC allowed 0'* ]]; then
+  export WORKFLOW_DIRENV_LOADED=1
+  exec direnv exec "$PWD" bash "$0" "$@"
+fi
+
 SKILL_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORKSPACE_NAME=".jira-workspace.json"
 WS_FILE="${WS_FILE:-}"
