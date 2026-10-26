@@ -144,6 +144,6 @@ bb_get() {
   local path="$1"; shift
   local url="$path"
   [[ "$url" == http* ]] || url="$BB_API$path"
-  local authcfg; authcfg="$(bb_authcfg)"
+  local authcfg; authcfg="$(bb_authcfg)" || return 1
   curl -sS -L --fail-with-body -K <(echo "$authcfg") "$url" "$@"
 }
